@@ -48,3 +48,9 @@ C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\obj\Debug\net7.0\refint\Blog.
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\obj\Debug\net7.0\Blog.Api.pdb
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\obj\Debug\net7.0\Blog.Api.genruntimeconfig.cache
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\obj\Debug\net7.0\ref\Blog.Api.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
