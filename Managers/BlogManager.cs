@@ -1,81 +1,101 @@
-﻿using Blog.Api.DtoModels;
-using Blog.Api.Repostiories;
+﻿using Blog.Api.Context;
+using Blog.Api.DtoModels;
+using Blog.Api.Exceptions;
+using Blog.Api.Providers;
+using Blog.Api.Validators;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Api.Managers;
 
 public class BlogManager
 {
-    protected readonly IBlogRepository _blogRepository;
+    private readonly IdentityDbContext _context;
+    private readonly UserProvider _provider;
+    
 
-    public BlogManager(IBlogRepository blogRepository)
+    public BlogManager( IdentityDbContext context, UserProvider provider)
     {
-        _blogRepository = blogRepository;
+        _context = context;
+        _provider = provider;
     }
     public async Task<List<BlogModel>> GetAllTheBlogs()
     {
-       var blogs = await _blogRepository.GetAllTheBlogs();
-       return ParseToModel(blogs);
+        var list = await _context.Blogs.Include(i => i.Posts).ToListAsync();
+        return ParseList(list);
     }
 
-    public async Task<Entities.Blog> CreateBlog(BlogModel model)
+    public async Task<BlogModel> CreateBlog(BlogDto dto)
     {
-        if (model == null)
+        var blogValidator = new BlogValidator();
+        var result = blogValidator.Validate(dto);
+        if (!result.IsValid)
         {
-            return null;
+            throw new BlogDtoIsNotValid("Blog dto is not valid");
         }
-        var blogModel = ConvertToBlog(model);
-        var blog = await _blogRepository.CreateBlog(blogModel);
-        return blog;
+        var blog = new Entities.Blog()
+        {
+            Name = dto.BlogName,
+            Description = dto.BlogDescription,
+            UserId = _provider.UserId
+        };
+        await _context.Blogs.AddAsync(blog);
+        await _context.SaveChangesAsync();
+        return ParseToBlogModel(blog);
     }
 
-    public async Task<Entities.Blog> GetBlogById(Guid Id)
+    /*public async Task<BlogModel?> UpdateBlog()
     {
-        var blog = await _blogRepository.GetBlogById(Id);
-        return blog;
+
+    }*/
+
+    public async Task<BlogModel> GetBlogById(Guid Id)
+    {
+        var blog = IsExists(Id);
+        return  ParseToBlogModel(blog);
     }
 
     public async Task DeleteBlog(Guid Id)
     {
-        await _blogRepository.DeleteBlog(Id);
-
+        var blog = IsExists(Id);
+        _context.Blogs.Remove(blog);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<Entities.Blog?> UpdateBlog(Entities.Blog blog)
-    {
-        var blogUpdated = await _blogRepository.UpdateBlog(blog);
-        return blogUpdated;
-    }
-    
 
-    public Entities.Blog ConvertToBlog(BlogModel model)
+    public Entities.Blog IsExists(Guid Id)
     {
-        var blog = new Entities.Blog()
+        var blog = _context.Blogs.FirstOrDefault(i => i.Id == Id);
+        if (blog == null)
         {
-            Name = model.Name,
-            Description = model.Description,
-        };
+            throw new BlogNotFoundException("Blog not Found");
+        }
         return blog;
     }
 
-    public BlogModel ParseTo(Entities.Blog blog)
-    {
-        var model = new BlogModel()
-        {
-            Name = blog.Name,
-            Description = blog.Description,
-            UserId = blog.UserId
-        };
-        return model;
-    }
-    public List<BlogModel> ParseToModel(List<Entities.Blog> blogs)
+  
+    private List<BlogModel> ParseList(List<Entities.Blog> blogs)
     {
         var blogModels = new List<BlogModel>();
         foreach (var blog in blogs)
         {
-            blogModels.Add(ParseTo(blog));
+            blogModels.Add(ParseToBlogModel(blog));
         }
-
         return blogModels;
+    } 
+    private BlogModel ParseToBlogModel(Entities.Blog blog)
+    {
+        var blogModel = new BlogModel()
+        {
+            Id = blog.Id,
+            Name = blog.Name,
+            Description = blog.Description,
+            CreatedDate = blog.CreateDateTime,
+            UserId = blog.UserId,
+            UserName = _provider.UserName,
+            Posts = blog.Posts,
+        };
+        return  blogModel;
     }
+    
 }
 

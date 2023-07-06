@@ -54,3 +54,5 @@ C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Microsoft.As
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\Muhammadjon\MarketPlace\Blog.Api\Blog.Api\bin\Debug\net7.0\Blog.Api.staticwebassets.runtime.json

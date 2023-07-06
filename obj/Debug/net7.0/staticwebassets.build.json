@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "Q8F9XjfmCcGuS6rZrXMhWpydg3hRT5f5brJGhsVdyLA=",
+  "Hash": "WhR3etlFa74kOprcbLs48AkJ7EZX1j+poM2gSFRFmew=",
   "Source": "Blog.Api",
   "BasePath": "_content/Blog.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Blog.Api\\wwwroot",
+      "Source": "Blog.Api",
+      "ContentRoot": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\",
+      "BasePath": "_content/Blog.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\PostImages\\8c5b4ea2-615f-4423-9322-00f71222f981.jpg",
+      "SourceId": "Blog.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\",
+      "BasePath": "_content/Blog.Api",
+      "RelativePath": "PostImages/8c5b4ea2-615f-4423-9322-00f71222f981.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\PostImages\\8c5b4ea2-615f-4423-9322-00f71222f981.jpg"
+    }
+  ]
 }

@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     {
         var section = configuration.GetSection(nameof(JwtOptions));
         services.Configure<JwtOptions>(section);
-
+    
         var jwtOptions = section.Get<JwtOptions>()!;
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
@@ -48,7 +48,6 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<TokenManager>();
         services.AddScoped<UserManager>();
-        services.AddSingleton<JwtOptions>();
         services.AddHttpContextAccessor();
         services.AddScoped<UserProvider>();
     }

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "p5G1JWfh0mjaUcILrFoqlA3AXN+WaLjzntRAeQf9Z0Hq+PWQWWkcxqyZI4ClsOrbjFHkV/sB/sIG3TgXzZtHzg==",
+  "dgSpecHash": "PoQcbGLdE0zP1gG5EsEDN2gHQ1IXQkECY35uVLUcuU/pxZWcJv7TIFKBMCRemh0d95nag22OFbiqaD+FDG/lCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
+    "C:\\Users\\Muhammadjon\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.8\\microsoft.aspnetcore.authentication.jwtbearer.7.0.8.nupkg.sha512",
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.8\\microsoft.aspnetcore.jsonpatch.7.0.8.nupkg.sha512",
