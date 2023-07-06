@@ -30,7 +30,7 @@ public class BlogManager
         var result = blogValidator.Validate(dto);
         if (!result.IsValid)
         {
-            throw new BlogDtoIsNotValid("Blog dto is not valid");
+            throw new BlogDtoIsNotValid("BlogDto is not valid");
         }
         var blog = new Entities.Blog()
         {
@@ -50,29 +50,24 @@ public class BlogManager
 
     public async Task<BlogModel> GetBlogById(Guid Id)
     {
-        var blog = IsExists(Id);
+        var blog = _context.Blogs.FirstOrDefault(i => i.Id == Id);
+        if (blog == null)
+        {
+            throw new BlogNotFoundException(Id.ToString());
+        }
         return  ParseToBlogModel(blog);
     }
 
     public async Task DeleteBlog(Guid Id)
     {
-        var blog = IsExists(Id);
+        var blog = await _context.Blogs.Where(i => i.Id == Id).FirstOrDefaultAsync();
+        if (blog == null)
+        {
+            throw new BlogNotFoundException(Id.ToString());
+        }
         _context.Blogs.Remove(blog);
         await _context.SaveChangesAsync();
     }
-
-
-    public Entities.Blog IsExists(Guid Id)
-    {
-        var blog = _context.Blogs.FirstOrDefault(i => i.Id == Id);
-        if (blog == null)
-        {
-            throw new BlogNotFoundException("Blog not Found");
-        }
-        return blog;
-    }
-
-  
     private List<BlogModel> ParseList(List<Entities.Blog> blogs)
     {
         var blogModels = new List<BlogModel>();

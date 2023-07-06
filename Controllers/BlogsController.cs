@@ -33,20 +33,20 @@ public class BlogsController : ControllerBase
         return  blog;
     }
 
-    [HttpGet("GetById/{Id}")]
+    [HttpGet("{Id}")]
     public async Task<BlogModel> GetBlogById(Guid Id)
     {
         var blog = await _manager.GetBlogById(Id);
         return blog;
     }
-    [HttpGet("Delete/{Id}")]
+    [HttpDelete("{Id}")]
     public async Task DeleteBlog(Guid Id)
     {
         await _manager.DeleteBlog(Id);
 
     }
 
-    [HttpPost("{blogId}/post")]
+    [HttpPost("{blogId}/posts")]
     public async Task<PostModel> CreatePost([FromForm]PostDto dto,Guid blogId)
     {
         var post = await _postManager.CreatePost(blogId, dto);
@@ -54,9 +54,9 @@ public class BlogsController : ControllerBase
     }
 
     [HttpGet("{blogId}/posts")]
-    public async Task<List<PostModel>> AllthePosts(Guid blogId)
+    public async Task<List<PostModel>> GetPostsById(Guid blogId)
     {
-        var list = await _postManager.AllPosts(blogId);
+        var list = await _postManager.GetAllPosts(blogId);
         return list;
     }
     [HttpGet("{blogId}/posts/{postId}")]
@@ -64,6 +64,12 @@ public class BlogsController : ControllerBase
     {
         var post = await _postManager.GetPostById(blogId, postId);
         return post;
+    }
+
+    [HttpDelete("{blogId}/posts/{postId}")]
+    public async Task DeletePost(Guid blogId, Guid postId)
+    {
+        await _postManager.Delete(blogId, postId);
     }
 
 

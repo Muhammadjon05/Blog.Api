@@ -2,7 +2,7 @@
 
 public class BlogNotFoundException : Exception
 {
-    public BlogNotFoundException(string message): base(message)
+    public BlogNotFoundException(string id): base($"Blog not Found with Id= {id}")
     {
         
     }

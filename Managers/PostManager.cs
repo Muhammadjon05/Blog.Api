@@ -4,6 +4,7 @@ using Blog.Api.Entities;
 using Blog.Api.Exceptions;
 using Blog.Api.Validators;
 using Marketplace.Services.Products.FileServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Api.Managers;
 
@@ -20,7 +21,7 @@ public class PostManager
 
     public async Task<PostModel> CreatePost(Guid Id, PostDto dto)
     {
-        var blog =  _blogManager.IsExists(Id);
+        var blog =  await _blogManager.GetBlogById(Id);
         var postValidator = new PostValidators();
         var result = postValidator.Validate(dto);
         if (!result.IsValid)
@@ -39,28 +40,38 @@ public class PostManager
         return ParseToPostModel(post);
     }
 
-    public async Task<List<PostModel>> AllPosts(Guid Id)
+    public async Task<List<PostModel>> GetAllPosts(Guid Id)
     {
-        var blog =  _blogManager.IsExists(Id);
+        var blog = await _blogManager.GetBlogById(Id);
         var posts = blog.Posts;
         return ParseToListModel(posts);
     }
     public async Task<PostModel> GetPostById(Guid blogId,Guid postId)
     {
-        var post = await IsExist(blogId, postId);
-        return post;
-    }
-
-    public async Task<PostModel> IsExist(Guid Id,Guid PostId)
-    {
-        var list = await AllPosts(Id);
-        var post = list.FirstOrDefault(i => i.Id == PostId);
+        var list = await GetAllPosts(blogId);
+        var post = list.FirstOrDefault(i => i.Id == postId);
         if (post == null)
         {
-            throw new PostNotFoundException($"With this{PostId} we could not find the post");
+            throw new PostNotFoundException(postId.ToString());
         }
         return post;
     }
+
+
+    public async Task Delete(Guid blogId,Guid postId)
+    {
+        var blog = await GetPostById(blogId, postId);
+        var post =  await _context.Posts.Where(i => i.Id == postId).FirstOrDefaultAsync();
+        if (post == null)
+        {
+            throw new PostNotFoundException(postId.ToString());
+        } 
+        _context.Posts.Remove(post);
+         await _context.SaveChangesAsync();
+         
+    }
+
+  
     public PostModel ParseToPostModel(Post post)
     {
         var postModel = new PostModel()
