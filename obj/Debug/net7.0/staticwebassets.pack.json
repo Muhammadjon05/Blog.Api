@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\PostImages\\8c5b4ea2-615f-4423-9322-00f71222f981.jpg"
     },
     {
+      "Id": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\PostImages\\d9098a55-5a0a-4663-a3fc-33ca73c213be.jpg",
+      "PackagePath": "staticwebassets\\PostImages\\d9098a55-5a0a-4663-a3fc-33ca73c213be.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Blog.Api.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

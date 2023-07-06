@@ -32,7 +32,7 @@ namespace Blog.Api.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -49,6 +49,34 @@ namespace Blog.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("Blog.Api.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("WrittenDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Blog.Api.Entities.Likes", b =>
@@ -86,7 +114,7 @@ namespace Blog.Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("PhotoUrl")
                         .IsRequired()
@@ -97,7 +125,7 @@ namespace Blog.Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -160,6 +188,25 @@ namespace Blog.Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Blog.Api.Entities.Comment", b =>
+                {
+                    b.HasOne("Blog.Api.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Blog.Api.Entities.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Blog.Api.Entities.Likes", b =>
                 {
                     b.HasOne("Blog.Api.Entities.Post", "Post")
@@ -216,6 +263,8 @@ namespace Blog.Api.Migrations
 
             modelBuilder.Entity("Blog.Api.Entities.Post", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Likes");
 
                     b.Navigation("SavedPosts");
@@ -224,6 +273,8 @@ namespace Blog.Api.Migrations
             modelBuilder.Entity("Blog.Api.Entities.User", b =>
                 {
                     b.Navigation("Blogs");
+
+                    b.Navigation("Comments");
 
                     b.Navigation("Likes");
 

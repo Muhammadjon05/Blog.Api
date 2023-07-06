@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<BlogManager>();
 builder.Services.AddScoped<PostManager>();
+builder.Services.AddScoped<CommentManager>();
 builder.Services.AddDbContext<IdentityDbContext>(options =>
 {	options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityDb"));
 });

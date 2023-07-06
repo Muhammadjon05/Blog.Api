@@ -40,9 +40,16 @@ public class IdentityDbContext : DbContext
             .HasMany(p => p.SavedPosts)
             .WithOne(l => l.Post)
             .HasForeignKey(l => l.PostId);
+        modelBuilder.Entity<Post>().HasMany(c => c.Comments)
+            .WithOne(c => c.Post)
+            .HasForeignKey(c => c.PostId); 
+        modelBuilder.Entity<User>().HasMany(c => c.Comments)
+            .WithOne(c => c.User)
+            .HasForeignKey(c => c.UserId);
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Comment> Comments { get; set; }
     public DbSet<Entities.Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Likes> Likes { get; set; }

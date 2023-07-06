@@ -10,6 +10,7 @@ public class Post
     public DateTime? UpdatedDate { get; set;}
     public Guid BlogId { get; set; }
     public  virtual Blog Blog { get; set; }
+    public virtual List<Comment> Comments { get; set; }
     public virtual List<Likes> Likes { get; set; }
     public virtual List<SavePost> SavedPosts { get; set; }
 }

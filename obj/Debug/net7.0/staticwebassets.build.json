@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WhR3etlFa74kOprcbLs48AkJ7EZX1j+poM2gSFRFmew=",
+  "Hash": "PeqRz5qmFlCsfKNiAUTHvcwsuA8AuiU8LqiX4h8om1Y=",
   "Source": "Blog.Api",
   "BasePath": "_content/Blog.Api",
   "Mode": "Default",
@@ -32,6 +32,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\PostImages\\8c5b4ea2-615f-4423-9322-00f71222f981.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\PostImages\\d9098a55-5a0a-4663-a3fc-33ca73c213be.jpg",
+      "SourceId": "Blog.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\wwwroot\\",
+      "BasePath": "_content/Blog.Api",
+      "RelativePath": "PostImages/d9098a55-5a0a-4663-a3fc-33ca73c213be.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\PostImages\\d9098a55-5a0a-4663-a3fc-33ca73c213be.jpg"
     }
   ]
 }

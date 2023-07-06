@@ -83,6 +83,7 @@ public class PostManager
             Id = post.Id,
             PhotoUrl = post.PhotoUrl,
             Likes = post.Likes,
+            Comments = post.Comments
         };
         return postModel;
     }

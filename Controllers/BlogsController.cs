@@ -12,12 +12,14 @@ namespace Blog.Api.Controllers;
 public class BlogsController : ControllerBase
 {
     private readonly BlogManager _manager;
+    private readonly CommentManager _commentManager;
     private readonly PostManager _postManager;
 
-    public BlogsController(BlogManager manager, PostManager postManager)
+    public BlogsController(BlogManager manager, PostManager postManager, CommentManager commentManager)
     {
         _manager = manager;
         _postManager = postManager;
+        _commentManager = commentManager;
     }
 
     [HttpGet]
@@ -72,10 +74,12 @@ public class BlogsController : ControllerBase
         await _postManager.Delete(blogId, postId);
     }
 
-
-
-
-
+    [HttpPost("posts/{postId}/comments")]
+    public async Task<CommentModel> AddComment(Guid postId, CommentDto dto)
+    {
+        var comment = await _commentManager.AddComment(postId, dto);
+        return comment;
+    }
     /*[HttpGet("Update")]
     public async Task<Entities.Blog?> UpdateBlog(Entities.Blog blog)
     {

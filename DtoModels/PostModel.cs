@@ -11,4 +11,5 @@ public class PostModel
     public DateTime CreatedDate { get; set; }
     public Guid BlogId { get; set; }
     public  List<Likes> Likes { get; set; }
+    public List<Comment> Comments { get; set; }
 }
