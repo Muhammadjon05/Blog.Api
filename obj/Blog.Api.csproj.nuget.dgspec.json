@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj": {}
+    "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\Blog.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj": {
+    "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\Blog.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\Blog.Api.csproj",
         "projectName": "Blog.Api",
-        "projectPath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj",
+        "projectPath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\Blog.Api.csproj",
         "packagesPath": "C:\\Users\\Muhammadjon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\obj\\",
+        "outputPath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Muhammadjon\\AppData\\Roaming\\NuGet\\NuGet.Config",

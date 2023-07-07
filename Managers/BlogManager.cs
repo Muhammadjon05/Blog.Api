@@ -24,8 +24,7 @@ public class BlogManager
         var list = await _context.Blogs.Include(i => i.Posts).ToListAsync();
         return ParseList(list);
     }
-
-    public async Task<BlogModel> CreateBlog(BlogDto dto)
+    public async Task<Entities.Blog> CreateBlog(BlogDto dto)
     {
         var blogValidator = new BlogValidator();
         var result = blogValidator.Validate(dto);
@@ -41,17 +40,11 @@ public class BlogManager
         };
         await _context.Blogs.AddAsync(blog);
         await _context.SaveChangesAsync();
-        return ParseToBlogModel(blog);
+        return blog;
     }
-
-    /*public async Task<BlogModel?> UpdateBlog()
-    {
-
-    }*/
-
     public async Task<BlogModel> GetBlogById(Guid Id)
     {
-        var blog = _context.Blogs.FirstOrDefault(i => i.Id == Id);
+        var blog = await _context.Blogs.FirstOrDefaultAsync(i => i.Id == Id);
         if (blog == null)
         {
             throw new BlogNotFoundException(Id.ToString());
@@ -69,6 +62,11 @@ public class BlogManager
         _context.Blogs.Remove(blog);
         await _context.SaveChangesAsync();
     }
+    
+    
+    
+    
+    
     private List<BlogModel> ParseList(List<Entities.Blog> blogs)
     {
         var blogModels = new List<BlogModel>();
@@ -78,19 +76,23 @@ public class BlogManager
         }
         return blogModels;
     }
-
-    public List<PostModel> ParseToPostModels(List<Post> posts)
+    public List<PostModel> ParseToPostModels(List<Post>? posts)
     {
-        var models = new List<PostModel>();
-        foreach (var post in posts)
+        if (posts == null || posts.Count == 0)
         {
-            models.Add(ParsePostToModel(post));
+            return new List<PostModel>();
         }
-
-        return models;
+        else
+        {
+            var models = new List<PostModel>();
+            foreach (var post in posts)
+            {
+             models.Add(ParsePostToModel(post));
+            }
+            return models;
+        }
     }
-
-    public PostModel ParsePostToModel(Post post)
+    public PostModel ParsePostToModel(Post? post)
     {
         var postModel = new PostModel()
         {
@@ -131,7 +133,7 @@ public class BlogManager
         };
         return model;
     } 
-    public  List<CommentModel> ParseList(List<Comment> comments)
+    public  List<CommentModel>? ParseList(List<Comment>? comments)
     {
         var model = new List<CommentModel>();
         foreach (var comment in comments)

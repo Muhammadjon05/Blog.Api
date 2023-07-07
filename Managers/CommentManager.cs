@@ -9,20 +9,18 @@ public class CommentManager
 {
     private readonly IdentityDbContext _context;
     private readonly BlogManager _blogManager;
-    private readonly PostManager _postManager;
     private readonly UserProvider _userProvider;
     public CommentManager(IdentityDbContext context, 
-        BlogManager blogManager, 
-        PostManager postManager, UserProvider userProvider)
+        BlogManager blogManager,UserProvider userProvider)
     {
         _context = context;
         _blogManager = blogManager;
-        _postManager = postManager;
         _userProvider = userProvider;
     }
 
-    public async Task<CommentModel> AddComment(Guid postId,CommentDto dto)
+    public async Task<CommentModel> AddComment(Guid postId,Guid blogId,CommentDto dto)
     {
+        await _blogManager.GetBlogById(blogId);
         var comment = new Comment()
         {
             Text = dto.Text,
@@ -34,7 +32,6 @@ public class CommentManager
         await _context.SaveChangesAsync();
         return ParseToModel(comment);
     }
-
     public  CommentModel ParseToModel(Comment comment)
     {
         var model = new CommentModel()

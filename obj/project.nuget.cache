@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PoQcbGLdE0zP1gG5EsEDN2gHQ1IXQkECY35uVLUcuU/pxZWcJv7TIFKBMCRemh0d95nag22OFbiqaD+FDG/lCg==",
+  "dgSpecHash": "J6pOlm+FcuW2JLCUnwvDvUqQt5q2Ks/6vv4hA+I/8PV1gsPVJbxFyhywM0SpBa46G0i+Cn1sw3NiE+zKgHsaLg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog.Api\\Blog.Api\\Blog.Api.csproj",
+  "projectFilePath": "C:\\Users\\Muhammadjon\\MarketPlace\\Blog\\Blog.Api\\Blog.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\Muhammadjon\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",

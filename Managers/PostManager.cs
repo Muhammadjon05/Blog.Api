@@ -19,25 +19,25 @@ public class PostManager
         _blogManager = blogManager;
     }
 
-    public async Task<PostModel> CreatePost(Guid Id, PostDto dto)
+    public async Task<PostModel> CreatePost(PostDto dto,Guid blogId)
     {
-        var blog =  await _blogManager.GetBlogById(Id);
+        await _blogManager.GetBlogById(blogId);
         var postValidator = new PostValidators();
         var result = postValidator.Validate(dto);
         if (!result.IsValid)
         {
             throw new PostDtoIsNotValid("PostDto is not valid");
         }
-        var post = new PostModel()
+        var post = new Post()
         {
             Title = dto.Title,
             Content = dto.Content,
             PhotoUrl = FileService.PostImages(dto.PostPhoto),
-            BlogId = Id
+            BlogId = blogId
         };
-        blog.Posts.Add(post);
+        await _context.Posts.AddAsync(post);
         await _context.SaveChangesAsync();
-        return post;
+        return ParseToPostModel(post);
     }
 
     public async Task<List<PostModel>> GetAllPosts(Guid Id)
@@ -48,17 +48,17 @@ public class PostManager
     }
     public async Task<PostModel> GetPostById(Guid blogId,Guid postId)
     {
-        var list = await GetAllPosts(blogId);
-        var post = list.FirstOrDefault(i => i.Id == postId);
+        await _blogManager.GetBlogById(blogId);
+        var post = _context.Posts.FirstOrDefault(i => i.Id == postId);
         if (post == null)
         {
             throw new PostNotFoundException(postId.ToString());
         }
-        return post;
+        return ParseToPostModel(post);
     }
-    public async Task Delete(Guid blogId,Guid postId)
+    public async Task Delete(Guid blogId ,Guid postId)
     {
-        var blog = await GetPostById(blogId, postId);
+        await _blogManager.GetBlogById(blogId);
         var post =  await _context.Posts.Where(i => i.Id == postId).FirstOrDefaultAsync();
         if (post == null)
         {
@@ -66,7 +66,6 @@ public class PostManager
         } 
         _context.Posts.Remove(post);
          await _context.SaveChangesAsync();
-         
     }
     public PostModel ParseToPostModel(Post post)
     {
@@ -83,7 +82,7 @@ public class PostManager
         };
         return postModel;
     }
-    public  CommentModel ParseToModel(Comment comment)
+    public  CommentModel ParseToModel(Comment? comment)
     {
         var model = new CommentModel()
         {
@@ -95,22 +94,36 @@ public class PostManager
         };
         return model;
     } 
-    public  List<CommentModel> ParseList(List<Comment> comments)
+    public  List<CommentModel> ParseList(List<Comment>? comments)
     {
-        var model = new List<CommentModel>();
-        foreach (var comment in comments)
+        if (comments == null || comments.Count == 0)
         {
-            model.Add(ParseToModel(comment));
+            return new List<CommentModel>();
         }
-        return model;
-    }
-    /*public List<PostModel> ParseToListModel(List<Post> posts)
+        else
+        {
+            var model = new List<CommentModel>();
+            foreach (var comment in comments)
+            {
+                model.Add(ParseToModel(comment));
+            }
+            return model;
+        }
+      
+    }public List<PostModel> ParseToListModel(List<Post>? posts)
     {
         var list = new List<PostModel>();
-        foreach (var post in posts)
+        if (posts == null)
         {
-            list.Add(ParseToPostModel(post));
+            return new List<PostModel>();
         }
-        return list;
-    }*/
+        else
+        {
+            foreach (var post in posts)
+            {
+                list.Add(ParseToPostModel(post));
+            }
+            return list;
+        }
+    }
 }
