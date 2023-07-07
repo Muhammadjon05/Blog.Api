@@ -97,7 +97,12 @@ public class BlogsController : ControllerBase
         var comment = await _commentManager.AddComment(postId,blogId, dto);
         return comment;
     }
-    
+    [HttpGet("{blogId}/posts/{postId}/comments")]
+    public async Task<List<CommentModel>> GetCommentById(Guid blogId, Guid postId)
+    {
+        var comment = await _commentManager.GetPostCommentsByPostId(blogId,postId);
+        return comment;
+    }
     
     /*[HttpGet("Update")]
     public async Task<Entities.Blog?> UpdateBlog(Entities.Blog blog)

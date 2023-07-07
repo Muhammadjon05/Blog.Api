@@ -49,7 +49,7 @@ public class PostManager
     public async Task<PostModel> GetPostById(Guid blogId,Guid postId)
     {
         await _blogManager.GetBlogById(blogId);
-        var post = _context.Posts.FirstOrDefault(i => i.Id == postId);
+        var post =await _context.Posts.Include(i=>i.Comments).FirstOrDefaultAsync(i => i.Id == postId);
         if (post == null)
         {
             throw new PostNotFoundException(postId.ToString());
