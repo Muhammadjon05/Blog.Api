@@ -28,7 +28,7 @@ public class PostManager
         {
             throw new PostDtoIsNotValid("PostDto is not valid");
         }
-        var post = new Post()
+        var post = new PostModel()
         {
             Title = dto.Title,
             Content = dto.Content,
@@ -37,14 +37,14 @@ public class PostManager
         };
         blog.Posts.Add(post);
         await _context.SaveChangesAsync();
-        return ParseToPostModel(post);
+        return post;
     }
 
     public async Task<List<PostModel>> GetAllPosts(Guid Id)
     {
         var blog = await _blogManager.GetBlogById(Id);
         var posts = blog.Posts;
-        return ParseToListModel(posts);
+        return posts;
     }
     public async Task<PostModel> GetPostById(Guid blogId,Guid postId)
     {
@@ -56,8 +56,6 @@ public class PostManager
         }
         return post;
     }
-
-
     public async Task Delete(Guid blogId,Guid postId)
     {
         var blog = await GetPostById(blogId, postId);
@@ -70,8 +68,6 @@ public class PostManager
          await _context.SaveChangesAsync();
          
     }
-
-  
     public PostModel ParseToPostModel(Post post)
     {
         var postModel = new PostModel()
@@ -83,12 +79,32 @@ public class PostManager
             Id = post.Id,
             PhotoUrl = post.PhotoUrl,
             Likes = post.Likes,
-            Comments = post.Comments
+            Comments = ParseList(post.Comments)
         };
         return postModel;
     }
-
-    public List<PostModel> ParseToListModel(List<Post> posts)
+    public  CommentModel ParseToModel(Comment comment)
+    {
+        var model = new CommentModel()
+        {
+            Id = comment.Id,
+            Text = comment.Text,
+            WrittenDate = comment.WrittenDate,
+            PostId = comment.PostId,
+            UserId = comment.UserId
+        };
+        return model;
+    } 
+    public  List<CommentModel> ParseList(List<Comment> comments)
+    {
+        var model = new List<CommentModel>();
+        foreach (var comment in comments)
+        {
+            model.Add(ParseToModel(comment));
+        }
+        return model;
+    }
+    /*public List<PostModel> ParseToListModel(List<Post> posts)
     {
         var list = new List<PostModel>();
         foreach (var post in posts)
@@ -96,5 +112,5 @@ public class PostManager
             list.Add(ParseToPostModel(post));
         }
         return list;
-    }
+    }*/
 }

@@ -80,6 +80,8 @@ public class BlogsController : ControllerBase
         var comment = await _commentManager.AddComment(postId, dto);
         return comment;
     }
+    
+    
     /*[HttpGet("Update")]
     public async Task<Entities.Blog?> UpdateBlog(Entities.Blog blog)
     {

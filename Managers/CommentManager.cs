@@ -1,7 +1,6 @@
 ﻿using Blog.Api.Context;
 using Blog.Api.DtoModels;
 using Blog.Api.Entities;
-using Blog.Api.Migrations;
 using Blog.Api.Providers;
 
 namespace Blog.Api.Managers;
@@ -47,5 +46,6 @@ public class CommentManager
             UserId = comment.UserId
         };
         return model;
-    }
+    } 
+   
 }
