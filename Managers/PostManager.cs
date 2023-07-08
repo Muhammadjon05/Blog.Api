@@ -12,11 +12,13 @@ public class PostManager
 {
     private readonly IdentityDbContext _context;
     private readonly BlogManager _blogManager;
+    private readonly LikeManager _likeManager;
 
-    public PostManager(IdentityDbContext context, BlogManager blogManager)
+    public PostManager(IdentityDbContext context, BlogManager blogManager, LikeManager likeManager)
     {
         _context = context;
         _blogManager = blogManager;
+        _likeManager = likeManager;
     }
 
     public async Task<PostModel> CreatePost(PostDto dto,Guid blogId)
@@ -67,6 +69,9 @@ public class PostManager
         _context.Posts.Remove(post);
          await _context.SaveChangesAsync();
     }
+    
+    
+    
     public PostModel ParseToPostModel(Post post)
     {
         var postModel = new PostModel()
@@ -77,11 +82,12 @@ public class PostManager
             CreatedDate = post.CreatedDate,
             Id = post.Id,
             PhotoUrl = post.PhotoUrl,
-            Likes = post.Likes,
+            Likes = _likeManager.ParseToListLikeModel(post.Likes),
             Comments = ParseList(post.Comments)
         };
         return postModel;
     }
+   
     public  CommentModel ParseToModel(Comment? comment)
     {
         var model = new CommentModel()
@@ -110,7 +116,8 @@ public class PostManager
             return model;
         }
       
-    }public List<PostModel> ParseToListModel(List<Post>? posts)
+    }
+    public List<PostModel> ParseToListModel(List<Post>? posts)
     {
         var list = new List<PostModel>();
         if (posts == null)

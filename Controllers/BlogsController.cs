@@ -8,20 +8,23 @@ namespace Blog.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+[Authorize] 
 public class BlogsController : ControllerBase
 {
     private readonly BlogManager _manager;
     private readonly CommentManager _commentManager;
     private readonly PostManager _postManager;
     private readonly UserProvider _userProvider;
+    private readonly LikeManager _likeManager;
 
-    public BlogsController(BlogManager manager, PostManager postManager, CommentManager commentManager, UserProvider userProvider)
+    public BlogsController(BlogManager manager, PostManager postManager,
+        CommentManager commentManager, UserProvider userProvider, LikeManager likeManager)
     {
         _manager = manager;
         _postManager = postManager;
         _commentManager = commentManager;
         _userProvider = userProvider;
+        _likeManager = likeManager;
     }
 
     [HttpGet]
@@ -63,7 +66,6 @@ public class BlogsController : ControllerBase
         await _manager.DeleteBlog(Id);
 
     }
-
     [HttpPost("{blogId}/posts/")]
     public async Task<PostModel> CreatePost([FromForm]PostDto dto,Guid blogId)
     {
@@ -71,26 +73,24 @@ public class BlogsController : ControllerBase
         var post = await _postManager.CreatePost(dto,blogId);
         return post;
     }
-
     [HttpGet("{blogId}/posts")]
     public async Task<List<PostModel>> GetPostsById(Guid blogId)
     {
         var list = await _postManager.GetAllPosts(blogId);
         return list;
     }
+    
     [HttpGet("{blogId}/posts/{postId}")]
     public async Task<PostModel> GetPostById(Guid blogId,Guid postId)
     {
         var post = await _postManager.GetPostById (blogId,postId);
         return post;
     }
-
     [HttpDelete("{blogId}/posts/{postId}")]
     public async Task DeletePost(Guid blogId,Guid postId)
     {
         await _postManager.Delete(blogId, postId);
     }
-
     [HttpPost("{blogId}/posts/{postId}/comments")]
     public async Task<CommentModel> AddComment([FromForm] CommentDto dto,Guid blogId, Guid postId)
     {
@@ -100,10 +100,17 @@ public class BlogsController : ControllerBase
     [HttpGet("{blogId}/posts/{postId}/comments")]
     public async Task<List<CommentModel>> GetCommentById(Guid blogId, Guid postId)
     {
-        var comment = await _commentManager.GetPostCommentsByPostId(blogId,postId);
-        return comment;
+        var comments = await _commentManager.GetPostCommentsByPostId(blogId,postId);
+        return comments;
     }
-    
+
+    [HttpGet("{blogId}/posts/{postId}/likes")]
+    public async Task<string> AddLikeByPostId(Guid blogId, Guid postId)
+    {
+        var result = await _likeManager.AddLikeByPostId(blogId,postId);
+        return result;
+    }
+
     /*[HttpGet("Update")]
     public async Task<Entities.Blog?> UpdateBlog(Entities.Blog blog)
     {

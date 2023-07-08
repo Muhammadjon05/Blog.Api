@@ -10,6 +10,6 @@ public class PostModel
     public string PhotoUrl { get; set; }
     public DateTime CreatedDate { get; set; }
     public Guid BlogId { get; set; }
-    public  List<Likes> Likes { get; set; }
+    public  List<LikeModel> Likes { get; set; }
     public List<CommentModel> Comments { get; set; }
 }

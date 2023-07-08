@@ -12,12 +12,13 @@ public class BlogManager
 {
     private readonly IdentityDbContext _context;
     private readonly UserProvider _provider;
-    
+    private readonly LikeManager _likeManager;
 
-    public BlogManager( IdentityDbContext context, UserProvider provider)
+    public BlogManager( IdentityDbContext context, UserProvider provider, LikeManager likeManager)
     {
         _context = context;
         _provider = provider;
+        _likeManager = likeManager;
     }
     public async Task<List<BlogModel>> GetAllTheBlogs()
     {
@@ -64,9 +65,6 @@ public class BlogManager
     }
     
     
-    
-    
-    
     private List<BlogModel> ParseList(List<Entities.Blog> blogs)
     {
         var blogModels = new List<BlogModel>();
@@ -103,7 +101,7 @@ public class BlogManager
             Comments = ParseList(post.Comments),
             PhotoUrl = post.PhotoUrl,
             Title = post.Title,
-            Likes = post.Likes,
+            Likes = _likeManager.ParseToListLikeModel(post.Likes),
         };
         return postModel;
     }
